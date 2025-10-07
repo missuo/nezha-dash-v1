@@ -1,6 +1,6 @@
 import { SharedClient } from "@/hooks/use-rpc2"
 import { komariToNezhaWebsocketResponse } from "@/lib/utils"
-import React, { useEffect, useRef, useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import { WebSocketContext, WebSocketContextType } from "./websocket-context"
 

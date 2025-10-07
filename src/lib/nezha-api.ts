@@ -1,5 +1,5 @@
 import { SharedClient } from "@/hooks/use-rpc2"
-import { LoginUserResponse, MonitorResponse, ServerGroupResponse, ServiceResponse, SettingResponse } from "@/types/nezha-api"
+import { LoginUserResponse, MonitorResponse, ServerGroupResponse, ServiceResponse, SettingResponse, NezhaMonitor } from "@/types/nezha-api"
 import { DateTime } from "luxon"
 
 import { uuidToNumber } from "./utils"
@@ -58,16 +58,90 @@ export const fetchLoginUser = async (): Promise<LoginUserResponse> => {
 }
 // TODO
 export const fetchMonitor = async (server_id: number): Promise<MonitorResponse> => {
-  const response = await fetch(`/api/v1/service/${server_id}`)
-  const data = await response.json()
-  if (data.error) {
-    throw new Error(data.error)
+  // 获取 uuid 和服务器名称
+  const km_nodes: Record<string, any> = await SharedClient().call("common:getNodes")
+  if (km_nodes?.error) {
+    throw new Error(km_nodes.error)
   }
-  return data
+  const uuid = Object.keys(km_nodes).find((id) => uuidToNumber(id) === server_id)
+  if (!uuid) {
+    return { success: true, data: [] }
+  }
+  const serverName = km_nodes[uuid]?.name || String(server_id)
+
+  // 新接口：直接通过 RPC 获取监控记录
+  const km_monitors: any = await SharedClient().call("common:getRecords", {
+    type: "ping",
+    uuid: uuid,
+    maxCount: 2000,
+    hours: 24,
+  })
+
+  // 将 km_monitors 转换为 NezhaMonitor[]
+  const seriesByTask = new Map<number, NezhaMonitor>()
+
+  // 兼容你提供的新结构：{ tasks: [], records: [], ... }
+  if (km_monitors && Array.isArray(km_monitors.tasks) && Array.isArray(km_monitors.records)) {
+    for (const task of km_monitors.tasks) {
+      seriesByTask.set(task.id, {
+        monitor_id: task.id,
+        monitor_name: task.name,
+        server_id,
+        server_name: serverName,
+        created_at: [],
+        avg_delay: [],
+      })
+    }
+
+    for (const rec of km_monitors.records) {
+      const s = seriesByTask.get(rec.task_id)
+      if (!s) continue
+      const ts = Date.parse(rec.time)
+      if (!Number.isFinite(ts)) continue
+      const val = Number(rec.value)
+      if (!Number.isFinite(val) || val === -1) continue
+      s.created_at.push(ts)
+      s.avg_delay.push(val)
+    }
+  } else if (Array.isArray(km_monitors)) {
+    // 可能是纯 records 数组 [{ task_id, time, value, name? }]
+    for (const rec of km_monitors) {
+      const id: number = typeof rec.task_id === "number" ? rec.task_id : 0
+      const name: string = rec.name || `task_${id}`
+      if (!seriesByTask.has(id)) {
+        seriesByTask.set(id, {
+          monitor_id: id,
+          monitor_name: name,
+          server_id,
+          server_name: serverName,
+          created_at: [],
+          avg_delay: [],
+        })
+      }
+      const s = seriesByTask.get(id)!
+      const ts = Date.parse(rec.time)
+      if (!Number.isFinite(ts)) continue
+      const val = Number(rec.value)
+      if (!Number.isFinite(val) || val === -1) continue
+      s.created_at.push(ts)
+      s.avg_delay.push(val)
+    }
+  } else {
+    // 未知结构，返回空
+  }
+
+  // 每个序列按时间升序
+  const data = Array.from(seriesByTask.values()).map((s) => {
+    const zip = s.created_at.map((t, i) => ({ t, v: s.avg_delay[i] }))
+    zip.sort((a, b) => a.t - b.t)
+    return { ...s, created_at: zip.map((z) => z.t), avg_delay: zip.map((z) => z.v) }
+  })
+
+  return { success: true, data }
 }
 // TODO
 export const fetchService = async (): Promise<ServiceResponse> => {
-  const response = await fetch("/api/v1/service")
+  const response = await SharedClient().call("common:getNodes")
   const data = await response.json()
   if (data.error) {
     throw new Error(data.error)
@@ -90,7 +164,7 @@ export const fetchSetting = async (): Promise<SettingResponse> => {
         site_name: km_public.sitename,
         user_template: "",
         admin_template: "",
-        custom_code: "" // km_public.custom_head 当作为主题时，Komari会自动在Head中插入该代码，留空即可
+        custom_code: "", // km_public.custom_head 当作为主题时，Komari会自动在Head中插入该代码，留空即可
       },
       version: km_version.version || "unknown",
     },
