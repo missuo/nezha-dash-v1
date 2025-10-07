@@ -55,9 +55,9 @@ function Header() {
     document.getElementsByTagName("head")[0].appendChild(link)
   }, [customLogo])
 
-  useEffect(() => {
-    document.title = siteName || "哪吒监控 Nezha Monitoring"
-  }, [siteName])
+  // useEffect(() => {
+  //   document.title = siteName || "哪吒监控 Nezha Monitoring"
+  // }, [siteName])
 
   const handleBackgroundToggle = () => {
     if (window.CustomBackgroundImage) {

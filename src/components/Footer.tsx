@@ -20,11 +20,11 @@ const Footer: React.FC = () => {
         <section className="mt-1 flex items-center sm:flex-row flex-col justify-between gap-2 text-[13px] font-light tracking-tight text-neutral-600/50 dark:text-neutral-300/50 server-footer-name">
           <div className="flex items-center gap-1">
             &copy;2020-{new Date().getFullYear()}{" "}
-            <a href={"https://github.com/naiba/nezha"} target="_blank">
+            <a href={"https://github.com/Akizon77/nezha-dash-v1"} target="_blank">
               Nezha
             </a>
             <span className="flex items-center border-l border-gray-300 w-1 h-3"></span>
-            <p>Powered by Komari {settingData?.data?.version || ""}</p>
+            <p>Powered by <a href={"https://github.com/komari-monitor/komari"} target="_blank">Komari {settingData?.data?.version || ""}</a></p>
             <span className="flex items-center border-l border-gray-300 w-1 h-3"></span>
             <p>Modified by Akizon77</p>
           </div>
