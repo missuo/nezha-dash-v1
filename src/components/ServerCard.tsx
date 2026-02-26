@@ -29,8 +29,7 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
 
   const customBackgroundImage = (window.CustomBackgroundImage as string) !== "" ? window.CustomBackgroundImage : undefined
 
-  // @ts-expect-error ShowNetTransfer is a global variable
-  const showNetTransfer = window.ShowNetTransfer as boolean
+
 
   // @ts-expect-error FixedTopServerName is a global variable
   const fixedTopServerName = window.FixedTopServerName as boolean
@@ -128,8 +127,7 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
             </div>
           </div>
         </section>
-        {showNetTransfer && (
-          <section className={"flex items-center w-full justify-between gap-1"}>
+        <section className={"flex items-center w-full justify-between gap-1"}>
             <Badge
               variant="secondary"
               className="items-center flex-1 justify-center rounded-[8px] text-nowrap text-[11px] border-muted-50 shadow-md shadow-neutral-200/30 dark:shadow-none"
@@ -143,7 +141,6 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
               {t("serverCard.download")}:{formatBytes(net_in_transfer)}
             </Badge>
           </section>
-        )}
         {parsedData?.planDataMod && <PlanInfo parsedData={parsedData} />}
       </div>
     </Card>
@@ -151,7 +148,7 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
     <Card
       className={cn(
         "flex flex-col items-center justify-start gap-3 sm:gap-0 p-3 md:px-5 cursor-pointer hover:bg-accent/50 transition-colors",
-        showNetTransfer ? "lg:min-h-[91px] min-h-[123px]" : "lg:min-h-[61px] min-h-[93px]",
+        "lg:min-h-[61px] min-h-[93px]",
         {
           "flex-col": fixedTopServerName,
           "lg:flex-row": !fixedTopServerName,

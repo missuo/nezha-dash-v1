@@ -33,17 +33,37 @@ export default function BillingInfo({ parsedData }: { parsedData: PublicNoteData
     }
   }
 
+  const getCycleDisplay = (cycle: string): string => {
+    const knownCycles = ["monthly", "quarterly", "semi-annually", "annual", "biennial", "triennial", "oneTime"]
+    if (knownCycles.includes(cycle)) {
+      return t(`billingInfo.cycle.${cycle}`)
+    }
+    // If it's a pure number (day count from deriveCycleLabel), use the days template
+    if (/^\d+$/.test(cycle)) {
+      return t("billingInfo.cycle.days", { count: Number(cycle) })
+    }
+    return cycle
+  }
+
+  const renderPrice = () => {
+    if (!parsedData.billingDataMod?.amount) return null
+    if (parsedData.billingDataMod.amount === "0") {
+      return <p className={cn("text-[10px] text-green-600 ")}>{t("billingInfo.free")}</p>
+    }
+    if (parsedData.billingDataMod.amount === "-1") {
+      return <p className={cn("text-[10px] text-pink-600 ")}>{t("billingInfo.usage-baseed")}</p>
+    }
+    const cycleDisplay = getCycleDisplay(parsedData.billingDataMod.cycle)
+    return (
+      <p className={cn("text-[10px] text-muted-foreground ")}>
+        {parsedData.billingDataMod.amount}/{cycleDisplay}
+      </p>
+    )
+  }
+
   return daysLeftObject.days >= 0 ? (
     <>
-      {parsedData.billingDataMod.amount && parsedData.billingDataMod.amount !== "0" && parsedData.billingDataMod.amount !== "-1" ? (
-        <p className={cn("text-[10px] text-muted-foreground ")}>
-          {t("billingInfo.price")}: {parsedData.billingDataMod.amount}/{parsedData.billingDataMod.cycle}
-        </p>
-      ) : parsedData.billingDataMod.amount === "0" ? (
-        <p className={cn("text-[10px] text-green-600 ")}>{t("billingInfo.free")}</p>
-      ) : parsedData.billingDataMod.amount === "-1" ? (
-        <p className={cn("text-[10px] text-pink-600 ")}>{t("billingInfo.usage-baseed")}</p>
-      ) : null}
+      {renderPrice()}
       <div className={cn("text-[10px] text-muted-foreground")}>
         {t("billingInfo.remaining")}: {isNeverExpire ? t("billingInfo.indefinite") : daysLeftObject.days + " " + t("billingInfo.days")}
       </div>
@@ -51,18 +71,11 @@ export default function BillingInfo({ parsedData }: { parsedData: PublicNoteData
     </>
   ) : (
     <>
-      {parsedData.billingDataMod.amount && parsedData.billingDataMod.amount !== "0" && parsedData.billingDataMod.amount !== "-1" ? (
-        <p className={cn("text-[10px] text-muted-foreground ")}>
-          {t("billingInfo.price")}: {parsedData.billingDataMod.amount}/{parsedData.billingDataMod.cycle}
-        </p>
-      ) : parsedData.billingDataMod.amount === "0" ? (
-        <p className={cn("text-[10px] text-green-600 ")}>{t("billingInfo.free")}</p>
-      ) : parsedData.billingDataMod.amount === "-1" ? (
-        <p className={cn("text-[10px] text-pink-600 ")}>{t("billingInfo.usage-baseed")}</p>
-      ) : null}
+      {renderPrice()}
       <p className={cn("text-[10px] text-muted-foreground text-red-600")}>
         {t("billingInfo.expired")}: {daysLeftObject.days * -1} {t("billingInfo.days")}
       </p>
     </>
   )
 }
+

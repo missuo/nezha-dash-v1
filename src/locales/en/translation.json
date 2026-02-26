@@ -31,12 +31,12 @@
     "stg": "STG",
     "days": "Days",
     "hours": "Hours",
-    "upload": "Upload",
-    "download": "Download",
+    "upload": "UL",
+    "download": "DL",
     "system": "System",
     "uptime": "Uptime",
-    "totalUpload": "Upload",
-    "totalDownload": "Download"
+    "totalUpload": "UL",
+    "totalDownload": "DL"
   },
   "cycleTransfer": {
     "used": "used",
@@ -124,7 +124,17 @@
     "days": "days",
     "price": "Price",
     "free": "Free",
-    "usage-baseed": "Usage-based"
+    "usage-baseed": "Usage-based",
+    "cycle": {
+      "monthly": "mo",
+      "quarterly": "qr",
+      "semi-annually": "6mo",
+      "annual": "yr",
+      "biennial": "2yr",
+      "triennial": "3yr",
+      "oneTime": "once",
+      "days": "{{count}}d"
+    }
   },
   "TypeCommand": "Type a command or search...",
   "NoResults": "No results found.",

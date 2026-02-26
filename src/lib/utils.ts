@@ -63,7 +63,7 @@ export function getDaysBetweenDatesWithAutoRenewal({ autoRenewal, cycle, startDa
     case "mo":
     case "month":
     case "monthly":
-      cycleLabel = "月"
+      cycleLabel = "monthly"
       months = 1
       break
     case "年":
@@ -71,14 +71,14 @@ export function getDaysBetweenDatesWithAutoRenewal({ autoRenewal, cycle, startDa
     case "yr":
     case "year":
     case "annual":
-      cycleLabel = "年"
+      cycleLabel = "annual"
       months = 12
       break
     case "季":
     case "q":
     case "qr":
     case "quarterly":
-      cycleLabel = "季"
+      cycleLabel = "quarterly"
       months = 3
       break
     case "半":
@@ -86,8 +86,19 @@ export function getDaysBetweenDatesWithAutoRenewal({ autoRenewal, cycle, startDa
     case "h":
     case "half":
     case "semi-annually":
-      cycleLabel = "半年"
+      cycleLabel = "semi-annually"
       months = 6
+      break
+    case "两年":
+    case "兩年":
+    case "biennial":
+      cycleLabel = "biennial"
+      months = 24
+      break
+    case "三年":
+    case "triennial":
+      cycleLabel = "triennial"
+      months = 36
       break
     default:
       cycleLabel = cycle
@@ -343,12 +354,14 @@ const countryFlagToCode = (flag: string): string => {
 function deriveCycleLabel(billing_cycle?: number): string {
   const bc = Number(billing_cycle || 0)
   if (!bc) return ""
-  if (bc >= 360) return "年"
-  if (bc >= 180) return "半年"
-  if (bc >= 90) return "季"
-  if (bc >= 30) return "月"
-  if (bc == -1) return "一次性"
-  return `${bc}天`
+  if (bc >= 1080) return "triennial"
+  if (bc >= 720) return "biennial"
+  if (bc >= 360) return "annual"
+  if (bc >= 180) return "semi-annually"
+  if (bc >= 90) return "quarterly"
+  if (bc >= 30) return "monthly"
+  if (bc == -1) return "oneTime"
+  return `${bc}`
 }
 
 // 清洗 tags：将分隔符 ";" 替换为空格，并移除颜色标签（不区分大小写）

@@ -31,12 +31,12 @@
     "stg": "存储",
     "days": "天",
     "hours": "小时",
-    "upload": "上传",
-    "download": "下载",
+    "upload": "UL",
+    "download": "DL",
     "system": "系统",
     "uptime": "运行时间",
-    "totalUpload": "总上传",
-    "totalDownload": "总下载"
+    "totalUpload": "UL",
+    "totalDownload": "DL"
   },
   "cycleTransfer": {
     "used": "已使用",
@@ -125,7 +125,17 @@
     "days": "天",
     "price": "价格",
     "free": "免费",
-    "usage-baseed": "按量计费"
+    "usage-baseed": "按量计费",
+    "cycle": {
+      "monthly": "月",
+      "quarterly": "季",
+      "semi-annually": "半年",
+      "annual": "年",
+      "biennial": "两年",
+      "triennial": "三年",
+      "oneTime": "一次性",
+      "days": "{{count}}天"
+    }
   },
   "TypeCommand": "输入命令或搜索",
   "NoResults": "结果为空",

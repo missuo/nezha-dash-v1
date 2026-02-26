@@ -41,7 +41,7 @@ function Header() {
   const customLogo = window.CustomLogo || "/favicon.ico"
 
   // @ts-expect-error CustomDesc is a global variable
-  const customDesc = window.CustomDesc || "Komari Monitor"
+  const customDesc = window.CustomDesc || "Server Monitor"
 
   const customMobileBackgroundImage = window.CustomMobileBackgroundImage !== "" ? window.CustomMobileBackgroundImage : undefined
 
@@ -293,12 +293,12 @@ function Overview() {
     return () => clearInterval(timer)
   }, [])
   return (
-    <section className={"mt-10 flex flex-col md:mt-16 header-timer"}>
+    <section className={"mt-4 flex flex-col md:mt-6 header-timer"}>
       <p className="text-base font-semibold">👋 {t("overview")}</p>
       <div className="flex items-center gap-1.5">
         <p className="text-sm font-medium opacity-50">{t("whereTheTimeIs")}</p>
         <NumberFlowGroup>
-          <div style={{ fontVariantNumeric: "tabular-nums" }} className="flex text-sm font-medium mt-0.5">
+          <div style={{ fontVariantNumeric: "tabular-nums" }} className="flex text-xl font-semibold tracking-tight">
             <NumberFlow trend={1} value={time.hh} format={{ minimumIntegerDigits: 2 }} />
             <NumberFlow prefix=":" trend={1} value={time.mm} digits={{ 1: { max: 5 } }} format={{ minimumIntegerDigits: 2 }} />
             <p className="mt-[0.5px]">:{time.ss.toString().padStart(2, "0")}</p>
