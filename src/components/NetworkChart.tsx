@@ -20,6 +20,36 @@ interface ResultItem {
   [key: string]: number
 }
 
+type CarrierCode = "CM" | "CU" | "CT"
+
+const carrierLogoMap: Record<CarrierCode, string> = {
+  CM: "/china-mobile.svg",
+  CU: "/china-unicom.svg",
+  CT: "/china-telecom.svg",
+}
+
+const getMonitorDisplayInfo = (monitorName: string) => {
+  const carrierMatch = monitorName.match(/\b(CM|CU|CT)\b/i)
+  const carrierCode = carrierMatch?.[1]?.toUpperCase() as CarrierCode | undefined
+  const cleanedName = monitorName.replace(/\b(CM|CU|CT)\b/gi, "").replace(/\s{2,}/g, " ").trim()
+
+  return {
+    name: cleanedName || monitorName,
+    logoSrc: carrierCode ? carrierLogoMap[carrierCode] : undefined,
+  }
+}
+
+const renderMonitorLabel = (monitorName: string, textClassName?: string) => {
+  const displayInfo = getMonitorDisplayInfo(monitorName)
+
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      {displayInfo.logoSrc && <img src={displayInfo.logoSrc} alt="" aria-hidden="true" className="h-3.5 w-3.5 shrink-0 object-contain" />}
+      <span className={textClassName}>{displayInfo.name}</span>
+    </span>
+  )
+}
+
 /**
  * Helper method to calculate packet loss from delay data
  */
@@ -115,7 +145,7 @@ export function NetworkChart({ server_id, show }: { server_id: number; show: boo
     },
     ...chartDataKey.reduce((acc, key) => {
       acc[key] = {
-        label: key,
+        label: renderMonitorLabel(key),
       }
       return acc
     }, {} as ChartConfig),
@@ -197,7 +227,7 @@ export const NetworkChartClient = React.memo(function NetworkChart({
             className={`relative z-30 flex cursor-pointer grow basis-0 flex-col justify-center gap-1 border-b border-neutral-200 dark:border-neutral-800 px-6 py-4 text-left data-[active=true]:bg-muted/50 sm:border-l sm:border-t-0 sm:px-6`}
             onClick={() => handleButtonClick(key)}
           >
-            <span className="whitespace-nowrap text-xs text-muted-foreground">{key}</span>
+            <span className="whitespace-nowrap text-xs text-muted-foreground">{renderMonitorLabel(key)}</span>
             <div className="flex flex-col gap-0.5">
               <span className="text-md font-bold leading-none sm:text-lg">{lastDelay.toFixed(2)}ms</span>
               {avgPacketLoss !== null && <span className="text-xs text-muted-foreground">{avgPacketLoss.toFixed(2)}% avg loss</span>}
@@ -483,12 +513,17 @@ export const NetworkChartClient = React.memo(function NetworkChart({
                       } else {
                         // For monitor names (in multi-chart view) - delay data
                         formattedValue = `${Number(value).toFixed(2)}ms`
-                        label = name as string
+                        label = getMonitorDisplayInfo(name as string).name
                       }
+
+                      const displayInfo = name === "packet_loss" || name === "avg_delay" ? undefined : getMonitorDisplayInfo(name as string)
 
                       return (
                         <div className="flex flex-1 items-center justify-between leading-none">
-                          <span className="text-muted-foreground">{label}</span>
+                          <span className="text-muted-foreground inline-flex items-center gap-1.5">
+                            {displayInfo?.logoSrc && <img src={displayInfo.logoSrc} alt="" aria-hidden="true" className="h-3 w-3 shrink-0 object-contain" />}
+                            <span>{label}</span>
+                          </span>
                           <span className="ml-2 font-medium text-foreground tabular-nums">{formattedValue}</span>
                         </div>
                       )
