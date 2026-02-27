@@ -61,9 +61,9 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
           {showFlag ? <ServerFlag country_code={country_code} /> : null}
         </div>
         <div className="relative flex flex-col">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-start gap-1.5">
             <p className={cn("break-normal font-bold tracking-tight", showFlag ? "text-xs " : "text-sm")}>{name}</p>
-            <div className="text-muted-foreground">
+            <div className="shrink-0 text-muted-foreground mt-[1px]">
               {platform.includes("Windows") ? (
                 <MageMicrosoftWindows className="size-[11px]" />
               ) : (
@@ -179,9 +179,9 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
           {showFlag ? <ServerFlag country_code={country_code} /> : null}
         </div>
         <div className="relative flex flex-col">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-start gap-1.5">
             <p className={cn("break-normal font-bold tracking-tight max-w-[108px]", showFlag ? "text-xs" : "text-sm")}>{name}</p>
-            <div className="text-muted-foreground">
+            <div className="shrink-0 text-muted-foreground mt-[1px]">
               {platform.includes("Windows") ? (
                 <MageMicrosoftWindows className="size-[11px]" />
               ) : (
