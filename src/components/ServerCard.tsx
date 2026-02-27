@@ -61,7 +61,16 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
           {showFlag ? <ServerFlag country_code={country_code} /> : null}
         </div>
         <div className="relative flex flex-col">
-          <p className={cn("break-normal font-bold tracking-tight", showFlag ? "text-xs " : "text-sm")}>{name}</p>
+          <div className="flex items-center gap-1.5">
+            <p className={cn("break-normal font-bold tracking-tight", showFlag ? "text-xs " : "text-sm")}>{name}</p>
+            <div className="text-muted-foreground">
+              {platform.includes("Windows") ? (
+                <MageMicrosoftWindows className="size-[11px]" />
+              ) : (
+                <p className={`fl-${GetFontLogoClass(platform)} text-[11px]`} />
+              )}
+            </div>
+          </div>
           <div
             className={cn("hidden lg:block", {
               "lg:hidden": fixedTopServerName,
@@ -170,7 +179,16 @@ export default function ServerCard({ now, serverInfo }: { now: number; serverInf
           {showFlag ? <ServerFlag country_code={country_code} /> : null}
         </div>
         <div className="relative flex flex-col">
-          <p className={cn("break-normal font-bold tracking-tight max-w-[108px]", showFlag ? "text-xs" : "text-sm")}>{name}</p>
+          <div className="flex items-center gap-1.5">
+            <p className={cn("break-normal font-bold tracking-tight max-w-[108px]", showFlag ? "text-xs" : "text-sm")}>{name}</p>
+            <div className="text-muted-foreground">
+              {platform.includes("Windows") ? (
+                <MageMicrosoftWindows className="size-[11px]" />
+              ) : (
+                <p className={`fl-${GetFontLogoClass(platform)} text-[11px]`} />
+              )}
+            </div>
+          </div>
           <div
             className={cn("hidden lg:block", {
               "lg:hidden": fixedTopServerName,
