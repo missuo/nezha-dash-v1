@@ -42,7 +42,8 @@
     "de-DE": "Deutsch",
     "es-ES": "Español",
     "ru-RU": "Русский",
-    "ta-IN": "தமிழ்"
+    "ta-IN": "தமிழ்",
+    "ja-JP": "日本語"
   },
   "TypeCommand": "Escriba un comando o busca...",
   "Shortcuts": "Atajos",

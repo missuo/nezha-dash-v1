@@ -1,0 +1,144 @@
+{
+  "nezha": "Nezha モニタリング",
+  "overview": "概要",
+  "dashboard": "ダッシュボード",
+  "login": "ログイン",
+  "online": "オンライン",
+  "offline": "オフライン",
+  "whereTheTimeIs": "現在時刻",
+  "refreshing": "更新中",
+  "info": {
+    "websocketConnecting": "WebSocket 接続中",
+    "websocketConnected": "WebSocket 接続成功",
+    "websocketDisconnected": "WebSocket 切断",
+    "processing": "処理中..."
+  },
+  "serverOverview": {
+    "totalServers": "サーバー合計",
+    "onlineServers": "オンラインサーバー",
+    "offlineServers": "オフラインサーバー",
+    "totalBandwidth": "総帯域幅",
+    "speed": "速度",
+    "network": "ネットワーク"
+  },
+  "map": {
+    "Distributions": "サーバーの分布：",
+    "Regions": "リージョン",
+    "Servers": "サーバー"
+  },
+  "serverCard": {
+    "mem": "メモリ",
+    "stg": "ストレージ",
+    "days": "日",
+    "hours": "時間",
+    "upload": "アップロード",
+    "download": "ダウンロード",
+    "system": "システム",
+    "uptime": "稼働時間",
+    "totalUpload": "アップロード",
+    "totalDownload": "ダウンロード"
+  },
+  "cycleTransfer": {
+    "used": "使用済み",
+    "total": "合計",
+    "nextUpdate": "次回更新"
+  },
+  "serviceTracker": {
+    "noService": "サービスデータなし",
+    "uptime": "稼働率",
+    "delay": "遅延",
+    "daysAgo": "日前",
+    "today": "今日",
+    "loading": "読み込み中..."
+  },
+  "serverDetail": {
+    "status": "ステータス",
+    "online": "オンライン",
+    "days": "日",
+    "hours": "時間",
+    "offline": "オフライン",
+    "unknown": "不明",
+    "uptime": "稼働時間",
+    "version": "バージョン",
+    "arch": "アーキテクチャ",
+    "mem": "メモリ",
+    "disk": "ディスク",
+    "region": "リージョン",
+    "system": "システム",
+    "upload": "アップロード",
+    "download": "ダウンロード",
+    "lastActive": "最終アクティブ",
+    "temperature": "温度",
+    "bootTime": "起動時間"
+  },
+  "serverDetailChart": {
+    "process": "プロセス",
+    "disk": "ディスク",
+    "mem": "メモリ",
+    "swap": "スワップ",
+    "upload": "アップロード",
+    "download": "ダウンロード"
+  },
+  "footer": {
+    "themeBy": "テーマ："
+  },
+  "language": {
+    "zh-CN": "简体中文",
+    "zh-TW": "繁體中文",
+    "en-US": "English",
+    "ja-JP": "日本語"
+  },
+  "theme": {
+    "light": "ライト",
+    "dark": "ダーク",
+    "system": "システム"
+  },
+  "error": {
+    "pageNotFound": "ページが見つかりません",
+    "backToHome": "ホームに戻る"
+  },
+  "tabSwitch": {
+    "Detail": "詳細",
+    "Network": "ネットワーク"
+  },
+  "monitor": {
+    "noData": "サーバー監視データがありません。管理画面でサービスモニターを追加してください",
+    "avgDelay": "遅延",
+    "monitorCount": "サービス",
+    "packetLoss": "パケットロス",
+    "clearSelections": "クリア"
+  },
+  "pwa": {
+    "offlineReady": "アプリはオフラインで使用できます",
+    "newContent": "新しいコンテンツが利用可能です",
+    "reload": "更新"
+  },
+  "billingInfo": {
+    "remaining": "残り日数",
+    "error": "エラー",
+    "indefinite": "無期限",
+    "expired": "期限切れ",
+    "days": "日",
+    "price": "価格",
+    "free": "無料",
+    "usage-baseed": "従量課金",
+    "cycle": {
+      "monthly": "月",
+      "quarterly": "四半期",
+      "semi-annually": "半年",
+      "annual": "年",
+      "biennial": "2年",
+      "triennial": "3年",
+      "oneTime": "一括",
+      "days": "{{count}}日"
+    }
+  },
+  "TypeCommand": "コマンドまたは検索...",
+  "NoResults": "結果が見つかりません",
+  "Servers": "サーバー",
+  "Shortcuts": "ショートカット",
+  "ToggleLightMode": "ライトモードに切替",
+  "ToggleDarkMode": "ダークモードに切替",
+  "ToggleSystemMode": "システムモードに切替",
+  "Home": "ホーム"
+}

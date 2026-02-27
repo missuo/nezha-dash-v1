@@ -31,12 +31,12 @@
     "stg": "存儲",
     "days": "天",
     "hours": "小時",
-    "upload": "UL",
-    "download": "DL",
+    "upload": "上傳",
+    "download": "下載",
     "system": "系統",
     "uptime": "運行時間",
-    "totalUpload": "UL",
-    "totalDownload": "DL"
+    "totalUpload": "上傳",
+    "totalDownload": "下載"
   },
   "cycleTransfer": {
     "used": "已使用",
@@ -86,10 +86,7 @@
     "zh-CN": "简体中文",
     "zh-TW": "繁體中文",
     "en-US": "English",
-    "de-DE": "德文",
-    "es-ES": "西班牙文",
-    "ru-RU": "俄文",
-    "ta-IN": "தமிழ்"
+    "ja-JP": "日語"
   },
   "theme": {
     "light": "亮色",

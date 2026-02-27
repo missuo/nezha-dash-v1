@@ -86,10 +86,7 @@
     "zh-CN": "简体中文",
     "zh-TW": "繁體中文",
     "en-US": "English",
-    "de-DE": "Deutsch",
-    "es-ES": "Español",
-    "ru-RU": "Русский",
-    "ta-IN": "தமிழ்"
+    "ja-JP": "日本語"
   },
   "theme": {
     "light": "Light",
